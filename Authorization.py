@@ -58,4 +58,12 @@ class Authorization(tk.Tk):
         file.write(f"login={self.__login.get()} \n")
         file.write(f"password={self.__password.get()} \n")
 
+    def check_data(self):
+        """функция проверяет на наличие сохраненного логина и пароля"""
+        if os.path.exists("local_settings.py") is True:
+            from local_settings import save_flag, login, password
+            self.save_var.set(save_flag)
+            self.__login.set(f"{login}")
+            self.__password.set(f"{password}")
+
 
