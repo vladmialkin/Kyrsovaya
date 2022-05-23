@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from Tree import Tree
 
 class Interface(tk.Tk):
     """класс основного интерфейса программы"""
@@ -29,9 +29,20 @@ class Interface(tk.Tk):
         self.user_button = tk.Button(self.panel_label, text="Список пользователей", width=30)
         self.user_button.place(x=20, y=110)
 
+        self.tree_list_label = tk.Label(self.panel_label, text="0/0", width=14)
+        self.tree_list_label.place(x=20, y=370)
+
         self.forward_button = tk.Button(self.panel_label, text="->", width=5)
         self.forward_button.place(x=80, y=400)
 
         self.back_button = tk.Button(self.panel_label, text="<-", width=5)
         self.back_button.place(x=20, y=400)
+
+        self.tree_label = tk.Label(self, width=600, heiight=30)
+        self.tree_label.place(x=300, y=10)
+
+        self.tree = Tree(self.tree_label, self.redmine)
+
+
+
 

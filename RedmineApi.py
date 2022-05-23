@@ -11,7 +11,7 @@ class RedmineApi:
         return cls.__inctance
 
     def __init__(self, error_text):
-        self.__site = "http://192.168.0.21/"
+        self.__site = "http://192.168.0.21/redmine/"
         self.redmine = None
         self.connection = False
         self.error_text = error_text
