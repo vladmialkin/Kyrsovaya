@@ -28,3 +28,6 @@ class RedmineApi:
         """функция получает объект всех проектов"""
         return self.redmine.project.all(limit=1000)
 
+    def get_trackers_all(self):
+        """функция получает объект всех трекеров"""
+        return self.redmine.project.all(limit=1000)
