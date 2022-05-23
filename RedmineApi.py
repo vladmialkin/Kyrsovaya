@@ -24,3 +24,7 @@ class RedmineApi:
         except:
             self.error_text.set("Неверно введен логин/пароль")
 
+    def get_projects_all(self):
+        """функция получает объект всех проектов"""
+        return self.redmine.project.all(limit=1000)
+
