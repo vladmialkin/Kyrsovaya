@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 
-class Tree(tk.Tk):
+class Tree(ttk.Treeview):
     """класс таблицы интерфейса"""
     def __init__(self, tree_label, redmine):
         super().__init__()

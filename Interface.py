@@ -38,7 +38,7 @@ class Interface(tk.Tk):
         self.back_button = tk.Button(self.panel_label, text="<-", width=5)
         self.back_button.place(x=20, y=400)
 
-        self.tree_label = tk.Label(self, width=600, heiight=30)
+        self.tree_label = tk.Label(self, width=600, height=30)
         self.tree_label.place(x=300, y=10)
 
         self.tree = Tree(self.tree_label, self.redmine)

@@ -80,7 +80,7 @@ class Authorization(tk.Tk):
                     self.new_window = Interface(self.redmine)
                     self.new_window.geometry("1024x720")
                     self.new_window.title("Redmine")
-                    self.quit()
+                    self.destroy()
             except:
                 self.error_text.set("Неверно введен логин/пароль")
         else:
@@ -91,7 +91,5 @@ class Authorization(tk.Tk):
         """функция вызова горячей клавиши при входе"""
         self.redmine_authorization()
 
-    def quit(self):
-        self.destroy()
 
 
