@@ -1,6 +1,7 @@
 import os.path
 import tkinter as tk
 from tkinter import ttk
+from RedmineApi import RedmineApi
 
 
 class Authorization(tk.Tk):
@@ -23,6 +24,8 @@ class Authorization(tk.Tk):
 
         self.save_var = tk.BooleanVar()
         self.save_var.set(False)
+
+        self.redmine = RedmineApi(self.error_text)
 
         self.login_entry = ttk.Entry(self, width=20, textvariable=self.__login)
         self.login_entry.place(x=5, y=5)
@@ -65,5 +68,20 @@ class Authorization(tk.Tk):
             self.save_var.set(save_flag)
             self.__login.set(f"{login}")
             self.__password.set(f"{password}")
+
+    def redmine_authorization(self):
+        """функция авторизуется в Redmine и выводит основной интерфейс"""
+        if self.__login.get() and self.__password.get() != "":
+            self.redmine.connecting(self.__login.get(), self.__password.get())
+            try:
+                if self.redmine.connection and self.redmine.redmine.auth():
+                    self.new_window = Interface(self.redmine)
+                    self.new_window.geometry("1024x720")
+                    self.new_window.title("Redmine")
+                    self.quit()
+
+    def callback(self):
+        """функция вызова горячей клавиши при входе"""
+        self.redmine_authorization()
 
 
