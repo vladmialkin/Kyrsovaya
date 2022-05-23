@@ -12,6 +12,15 @@ class RedmineApi:
 
     def __init__(self, error_text):
         self.__site = None
-        self.__redmine = None
+        self.redmine = None
         self.connection = False
         self.error_text = error_text
+
+    def connecting(self, __login, __password):
+        """функция подключения к Redmine"""
+        try:
+            self.redmine = rdm.Redmine(self.__site, username=__login, password=password)
+            self.connection = True
+        except:
+            self.error_text.set("Неверно введен логин/пароль")
+
