@@ -2,7 +2,7 @@ import os.path
 import tkinter as tk
 from tkinter import ttk
 from RedmineApi import RedmineApi
-
+from Interface import Interface
 
 class Authorization(tk.Tk):
     """Класс интерфейса программы"""
@@ -26,6 +26,7 @@ class Authorization(tk.Tk):
         self.save_var.set(False)
 
         self.redmine = RedmineApi(self.error_text)
+        self.new_window = None
 
         self.login_entry = ttk.Entry(self, width=20, textvariable=self.__login)
         self.login_entry.place(x=5, y=5)
@@ -59,8 +60,8 @@ class Authorization(tk.Tk):
         """функция сохраняет логин и пароль"""
         file = open("local_settings.py", "w")
         file.write(f"save_flag = {True} \n")
-        file.write(f"login={self.__login.get()} \n")
-        file.write(f"password={self.__password.get()} \n")
+        file.write(f"login='{self.__login.get()}' \n")
+        file.write(f"password='{self.__password.get()}' \n")
 
     def check_data(self):
         """функция проверяет на наличие сохраненного логина и пароля"""
