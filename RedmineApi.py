@@ -33,5 +33,9 @@ class RedmineApi:
         return self.redmine.tracker.all(limit=1000)
 
     def get_issues_all(self):
-        """функция получает объект всех пользователей"""
+        """функция получает объект всех задач"""
         return self.redmine.issue.all(limit=1000)
+
+    def get_users_all(self):
+        """функция получает объект всех пользователей"""
+        return self.redmine.user.all(limit=1000)
