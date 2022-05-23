@@ -43,7 +43,7 @@ class Authorization(tk.Tk):
         self.bind("<Return>", self.callback)
         self.check_data()
 
-    def check_data(self):
+    def check_save(self):
         """функция проверяет согласие на сохранение логина и пароля"""
         if self.save_var.get() is True:
             self.save()
@@ -51,5 +51,11 @@ class Authorization(tk.Tk):
             if os.path.exists("local_settings.py") is True:
                 os.remove("local_settings.py")
 
+    def save(self):
+        """функция сохраняет логин и пароль"""
+        file = open("local_settings.py", "w")
+        file.write(f"save_flag = {True} \n")
+        file.write(f"login={self.__login.get()} \n")
+        file.write(f"password={self.__password.get()} \n")
 
 
