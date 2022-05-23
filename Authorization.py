@@ -84,4 +84,7 @@ class Authorization(tk.Tk):
         """функция вызова горячей клавиши при входе"""
         self.redmine_authorization()
 
+    def quit(self):
+        self.destroy()
+
 
