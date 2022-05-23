@@ -1,3 +1,7 @@
+from Authorization import Authorization
+from RedmineApi import RedmineApi
+
 
 if __name__ == "__main__":
-    pass`
+    window = Authorization()
+    window.mainloop()
