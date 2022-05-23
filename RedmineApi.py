@@ -11,7 +11,7 @@ class RedmineApi:
         return cls.__inctance
 
     def __init__(self, error_text):
-        self.__site = None
+        self.__site = "http://192.168.0.21/"
         self.redmine = None
         self.connection = False
         self.error_text = error_text
@@ -22,7 +22,7 @@ class RedmineApi:
             self.redmine = rdm.Redmine(self.__site, username=__login, password=__password)
             self.connection = True
         except:
-            self.error_text.set("Неверно введен логин/пароль")
+            self.error_text.set("Ошибка подключения к серверу")
 
     def get_projects_all(self):
         """функция получает объект всех проектов"""

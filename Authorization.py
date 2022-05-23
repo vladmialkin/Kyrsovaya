@@ -15,7 +15,7 @@ class Authorization(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.geometry("240x240")
+        self.geometry("260x240")
         self.title("Авторизация")
 
         self.__login = tk.StringVar()
@@ -33,14 +33,15 @@ class Authorization(tk.Tk):
         self.password_entry = ttk.Entry(self, width=20, textvariable=self.__password, show='*')
         self.password_entry.place(x=5, y=35)
 
-        self.error_label = tk.Label(self, width=20, textvariable=self.error_text)
+        self.error_label = tk.Label(self, width=35, textvariable=self.error_text)
         self.error_label.place(x=5, y=60)
 
         self.save_data_button = tk.Checkbutton(self, text="Сохранить логин и пароль", variable=self.save_var, onvalue=1,
                                                offvalue=0)
         self.save_data_button.place(x=5, y=90)
 
-        self.auth_button = tk.Button(self, width=20, text="OK")
+        self.auth_button = tk.Button(self, width=20, text="OK",
+                                     command=lambda: (self.redmine_authorization(), self.check_save()))
         self.auth_button.place(x=40, y=160)
 
         self.bind("<Return>", self.callback)
@@ -79,8 +80,13 @@ class Authorization(tk.Tk):
                     self.new_window.geometry("1024x720")
                     self.new_window.title("Redmine")
                     self.quit()
+            except:
+                self.error_text.set("Неверно введен логин/пароль")
+        else:
+            self.error_text.set("Поле логин/пароль не может быть пустым")
 
-    def callback(self):
+
+    def callback(self, event):
         """функция вызова горячей клавиши при входе"""
         self.redmine_authorization()
 
