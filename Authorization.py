@@ -1,3 +1,4 @@
+import os.path
 import tkinter as tk
 from tkinter import ttk
 
@@ -38,4 +39,17 @@ class Authorization(tk.Tk):
 
         self.auth_button = tk.Button(self, width=20, text="OK")
         self.auth_button.place(x=40, y=160)
+
+        self.bind("<Return>", self.callback)
+        self.check_data()
+
+    def check_data(self):
+        """функция проверяет согласие на сохранение логина и пароля"""
+        if self.save_var.get() is True:
+            self.save()
+        else:
+            if os.path.exists("local_settings.py") is True:
+                os.remove("local_settings.py")
+
+
 
