@@ -54,8 +54,23 @@ class Tree(ttk.Treeview):
                 self.tree.insert("", tk.END, values=(val,))
 
     def iter_insert(self):
-        """функция добавляет остальные данные в таблицу"""
+        """функция добавляет данные в таблицу"""
         val_iter = iter(self.data_resource[self.back_id:self.forward_id])
         for value in val_iter:
             self.tree.insert("", tk.END, values=(value,))
+
+    def forward_insert(self):
+        """функция добавляет данные следующие данные"""
+        if self.list_current < self.list:
+            self.clear_tree()
+
+            self.list_current += 1
+            self.forward_id = self.list_current * 21
+            self.back_id = (self.list_current - 1) * 21
+
+            self.iter_insert()
+
+        if self.list_current == self.list:
+            self.forward_id = len(self.data_resource)
+            self.back_id = (self.list_current - 1) * 21
 
