@@ -1,23 +1,23 @@
 import tkinter as tk
-from Tree import Tree
+from Tree import Treeview
 
+column_1 = ["Трекер"]
+column_2 = ["Проект"]
+column_3 = ["задача"]
+column_4 = ["пользователь"]
 
-columns_1 = ["Трекер"]
-columns_2 = ["Проект"]
-columns_3 = ["Задача"]
-columns_4 = ["Пользователь"]
 
 class Interface(tk.Tk):
-    """класс основного интерфейса программы"""
-    __instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super(Interface, cls).__new__(cls)
-        return cls.__instance
-
+    """ класс основного графического интерфейса """
     def __init__(self, redmine):
         super().__init__()
+        self.projects = None
+        self.trackers = None
+        self.issues = None
+        self.users = None
+
+        self.search_variable = tk.StringVar()
+
         self.redmine = redmine
 
         self.panel_label = tk.Label(self, width=40, height=30, background="#34A2FE")
@@ -26,63 +26,74 @@ class Interface(tk.Tk):
         self.tracker_button = tk.Button(self.panel_label, text="Список трекеров", width=30, command=self.get_trackers)
         self.tracker_button.place(x=20, y=20)
 
-        self.project_button = tk.Button(self.panel_label, text="Список проектов", width=30, command=self.get_projects)
-        self.project_button.place(x=20, y=50)
+        self.projects_button = tk.Button(self.panel_label, text="Список проектов", width=30, command=self.get_projects)
+        self.projects_button.place(x=20, y=50)
 
-        self.issue_button = tk.Button(self.panel_label, text="Список задач", width=30, command=self.get_issues)
-        self.issue_button.place(x=20, y=80)
-
-        self.user_button = tk.Button(self.panel_label, text="Список пользователей", width=30, command=self.get_users)
-        self.user_button.place(x=20, y=110)
-
-        self.tree_list_label = tk.Label(self.panel_label, text="0/0", width=14)
-        self.tree_list_label.place(x=20, y=370)
-
-        self.forward_button = tk.Button(self.panel_label, text="->", width=5,
-                                        command=lambda: (self.tree.forward_insert(),
-                                                         self.tree_list_label.config(
-                                                             text=f"{self.tree.list_current}/{self.tree.list}"),))
-        self.forward_button.place(x=80, y=400)
-
-        self.back_button = tk.Button(self.panel_label, text="<-", width=5,
-                                     command=lambda: (self.tree.back_insert(),
-                                                      self.tree_list_label.config(
-                                                          text=f"{self.tree.list_current}/{self.tree.list}"),))
-        self.back_button.place(x=20, y=400)
+        self.upload_button = tk.Button(self.panel_label, text="Список пользователей", width=30, command=self.get_users)
+        self.upload_button.place(x=20, y=80)
 
         self.tree_label = tk.Label(self, width=600, height=30)
         self.tree_label.place(x=300, y=10)
 
-        self.tree = Tree(self.tree_label, self.redmine)
+        self.tree = Treeview(self.tree_label, self.redmine)
+
+        self.issues_button = tk.Button(self.panel_label, text="Список задач", width=30, command=self.get_issues)
+        self.issues_button.place(x=20, y=110)
+
+        self.search_tree_entry = tk.Entry(self.panel_label, width=36, textvariable=self.search_variable)
+        self.search_tree_entry.place(x=20, y=140)
+
+        self.search_tree_button = tk.Button(self.panel_label, text='Поиск', width=30, command=self.get_search)
+        self.search_tree_button.place(x=20, y=165)
+
+        self.tree_list_label = tk.Label(self.panel_label, text="0/0", width=14)
+        self.tree_list_label.place(x=20, y=370)
+
+        self.forward_tree_button = tk.Button(self.panel_label, text="->", width=5, command=lambda: (
+            self.tree.forward_insert(), self.tree_list_label.config(text=f"{self.tree.list_current}/{self.tree.list}")))
+
+        self.forward_tree_button.place(x=80, y=400)
+
+        self.back_tree_button = tk.Button(self.panel_label, text="<-", width=5, command=lambda: (
+            self.tree.back_insert(), self.tree_list_label.config(text=f"{self.tree.list_current}/{self.tree.list}")))
+
+        self.back_tree_button.place(x=20, y=400)
+
+    def insert_date_tree(self, func):
+        """функция заполняет данные в таблицу"""
+        self.tree.insert_tree(func)
+
+    def change(self, variable):
+        """функция запонляет данные в таблицу, проверяет количество страниц"""
+        self.insert_date_tree(variable)
+        self.tree.check_tree_list(variable)
+        self.tree_list_label.config(text=f"1/{self.tree.list}")
 
     def get_projects(self):
-        """функция вывода проектов"""
-        projects = self.redmine.get_projects_all()
-        self.tree.init_columns(columns_2)
-        self.tree.insert_tree(projects)
-        self.tree.check_tree_list(projects)
-        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+        """функция получает проекты"""
+        self.projects = self.redmine.get_projects_all()
+        self.tree.init_columns(column_2)
+        self.change(self.projects)
 
     def get_trackers(self):
-        """функция вывода трекеров"""
-        trackers = self.redmine.get_trackers_all()
-        self.tree.init_columns(columns_1)
-        self.tree.insert_tree(trackers)
-        self.tree.check_tree_list(trackers)
-        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+        """функция получает трекеры"""
+        self.trackers = self.redmine.get_trackers_all()
+        self.tree.init_columns(column_1)
+        self.change(self.trackers)
 
     def get_issues(self):
-        """функция вывода задач"""
-        issues = self.redmine.get_issues_all()
-        self.tree.init_columns(columns_3)
-        self.tree.insert_tree(issues)
-        self.tree.check_tree_list(issues)
-        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+        """функция получает задачи"""
+        self.issues = self.redmine.get_issues_all()
+        self.tree.init_columns(column_3)
+        self.change(self.issues)
 
     def get_users(self):
-        """функция вывода пользователей"""
-        users = self.redmine.get_users_all()
-        self.tree.init_columns(columns_4)
-        self.tree.insert_tree(users)
-        self.tree.check_tree_list(users)
-        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+        """функция получает пользователей"""
+        self.users = self.redmine.get_users_all()
+        self.tree.init_columns(column_4)
+        self.change(self.users)
+
+    def get_search(self):
+        value = self.search_tree_entry.get()
+        self.tree.get_search_tree(value)
+
