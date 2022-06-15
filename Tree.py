@@ -74,3 +74,18 @@ class Tree(ttk.Treeview):
             self.forward_id = len(self.data_resource)
             self.back_id = (self.list_current - 1) * 21
 
+    def back_insert(self):
+        """функция добавляет данные предыдущие данные"""
+        if self.list_current > self.list:
+            self.clear_tree()
+
+            self.list_current -= 1
+            self.forward_id = self.list_current * 21
+            self.back_id = self.forward_id - 21
+
+            self.iter_insert()
+
+        if self.list_current == 1:
+            self.back_id = 0
+            self.forward_id = 21
+
