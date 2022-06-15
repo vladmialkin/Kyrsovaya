@@ -43,6 +43,16 @@ class Interface(tk.Tk):
 
         self.tree = Tree(self.tree_label, self.redmine)
 
+    def get_projects(self):
+        """функция вывода проектов"""
+        projects = self.redmine.get_projects_all()
+        self.tree.init_columns("Проект")
+        self.tree.insert_tree(projects)
+        self.tree.check_tree_list(projects)
+        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+
+
+
 
 
 
