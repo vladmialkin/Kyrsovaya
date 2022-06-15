@@ -52,3 +52,10 @@ class Tree(ttk.Treeview):
         for index, val in enumerate(resource):
             if index <= 20:
                 self.tree.insert("", tk.END, values=(val,))
+
+    def iter_insert(self):
+        """функция добавляет остальные данные в таблицу"""
+        val_iter = iter(self.data_resource[self.back_id:self.forward_id])
+        for value in val_iter:
+            self.tree.insert("", tk.END, values=(value,))
+
