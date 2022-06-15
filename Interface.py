@@ -51,8 +51,13 @@ class Interface(tk.Tk):
         self.tree.check_tree_list(projects)
         self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
 
-
-
+    def get_trackers(self):
+        """функция вывода трекеров"""
+        trackers = self.redmine.get_projects_all()
+        self.tree.init_columns("Трекер")
+        self.tree.insert_tree(trackers)
+        self.tree.check_tree_list(trackers)
+        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
 
 
 
