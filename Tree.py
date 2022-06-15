@@ -40,3 +40,8 @@ class Tree(ttk.Treeview):
             self.list = int(count / 21)
         else:
             self.list = int(count / 21) + 1
+
+    def clear_tree(self):
+        """функция удаляет данные из таблицы"""
+        for val in self.tree.get_children():
+            self.tree.delete(val)
