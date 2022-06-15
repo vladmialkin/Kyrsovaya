@@ -67,6 +67,12 @@ class Interface(tk.Tk):
         self.tree.check_tree_list(issues)
         self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
 
-
+    def get_users(self):
+        """функция вывода пользователей"""
+        users = self.redmine.get_users_all()
+        self.tree.init_columns("Пользователь")
+        self.tree.insert_tree(users)
+        self.tree.check_tree_list(users)
+        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
 
 
