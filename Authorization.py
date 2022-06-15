@@ -4,14 +4,15 @@ from tkinter import ttk
 from RedmineApi import RedmineApi
 from Interface import Interface
 
+
 class Authorization(tk.Tk):
     """Класс интерфейса программы"""
-    __inctance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if cls.__inctance is None:
-            cls.__inctance = super(Authorization, cls).__new__(cls)
-        return cls.__inctance
+        if cls.__instance is None:
+            cls.__instance = super(Authorization, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         super().__init__()
@@ -81,15 +82,12 @@ class Authorization(tk.Tk):
                     self.new_window.geometry("1024x720")
                     self.new_window.title("Redmine")
                     self.destroy()
-            except:
+            except Exception as e:
+                print(e)
                 self.error_text.set("Неверно введен логин/пароль")
         else:
             self.error_text.set("Поле логин/пароль не может быть пустым")
 
-
     def callback(self, event):
         """функция вызова горячей клавиши при входе"""
         self.redmine_authorization()
-
-
-

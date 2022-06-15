@@ -88,4 +88,3 @@ class Tree(ttk.Treeview):
         if self.list_current == 1:
             self.back_id = 0
             self.forward_id = 21
-

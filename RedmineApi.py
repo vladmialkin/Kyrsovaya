@@ -3,12 +3,12 @@ import redminelib as rdm
 
 class RedmineApi:
     """класс взаимодейтсвия с Redmine"""
-    __inctance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if cls.__inctance is None:
-            cls.__inctance= super(RedmineApi, cls).__new__(cls)
-        return cls.__inctance
+        if cls.__instance is None:
+            cls.__instance = super(RedmineApi, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self, error_text):
         self.__site = "http://192.168.0.21/redmine/"
@@ -21,7 +21,8 @@ class RedmineApi:
         try:
             self.redmine = rdm.Redmine(self.__site, username=__login, password=__password)
             self.connection = True
-        except:
+        except Exception as e:
+            print(e)
             self.error_text.set("Ошибка подключения к серверу")
 
     def get_projects_all(self):

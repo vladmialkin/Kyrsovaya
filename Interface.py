@@ -1,14 +1,15 @@
 import tkinter as tk
 from Tree import Tree
 
+
 class Interface(tk.Tk):
     """класс основного интерфейса программы"""
-    __inctance = None
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        if cls.__inctance is None:
-            cls.__inctance= super(Interface, cls).__new__(cls)
-        return cls.__inctance
+        if cls.__instance is None:
+            cls.__instance = super(Interface, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self, redmine):
         super().__init__()
@@ -74,5 +75,3 @@ class Interface(tk.Tk):
         self.tree.insert_tree(users)
         self.tree.check_tree_list(users)
         self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
-
-
