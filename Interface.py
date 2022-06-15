@@ -59,5 +59,14 @@ class Interface(tk.Tk):
         self.tree.check_tree_list(trackers)
         self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
 
+    def get_issues(self):
+        """функция вывода задач"""
+        issues = self.redmine.get_issues_all()
+        self.tree.init_columns("Задача")
+        self.tree.insert_tree(issues)
+        self.tree.check_tree_list(issues)
+        self.tree_list_label.config(text=f"1/{self.tree.list + 1}")
+
+
 
 
