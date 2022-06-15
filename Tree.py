@@ -50,7 +50,7 @@ class Tree(ttk.Treeview):
         """функция заполняет первую страницу данныв в таблицу"""
         self.clear_tree()
         for index, val in enumerate(resource):
-            if index <= 20:
+            if index <= 21:
                 self.tree.insert("", tk.END, values=(val,))
 
     def iter_insert(self):
