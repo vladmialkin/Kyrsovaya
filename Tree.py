@@ -45,3 +45,10 @@ class Tree(ttk.Treeview):
         """функция удаляет данные из таблицы"""
         for val in self.tree.get_children():
             self.tree.delete(val)
+
+    def insert_tree(self, resource):
+        """функция заполняет первую страницу данныв в таблицу"""
+        self.clear_tree()
+        for index, val in enumerate(resource):
+            if index <= 20:
+                self.tree.insert("", tk.END, values=(val,))
