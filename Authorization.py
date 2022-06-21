@@ -74,7 +74,7 @@ class Authorization(tk.Tk):
 
     def redmine_authorization(self):
         """функция авторизуется в Redmine и выводит основной интерфейс"""
-        if self.__login.get() and self.__password.get() != "":
+        if self.__login.get() != "" and self.__password.get() != "":
             self.redmine.connecting(self.__login.get(), self.__password.get())
             try:
                 if self.redmine.connection and self.redmine.redmine.auth():
