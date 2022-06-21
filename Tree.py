@@ -52,8 +52,8 @@ class Treeview(ttk.Treeview):
 
     def iter_insert(self):
         """функция добавляет данные в таблицу"""
-        val_iter = iter(self.data_resource[self.back_id:self.forward_id])
-        for index in val_iter:
+        val = self.data_resource[self.back_id:self.forward_id]
+        for index in val:
             self.tree.insert("", tk.END, values=(index,))
 
     def forward_insert(self):
