@@ -15,6 +15,7 @@ class Interface(tk.Tk):
         self.trackers = None
         self.issues = None
         self.users = None
+        self.value = None
 
         self.search_variable = tk.StringVar()
 
@@ -59,9 +60,9 @@ class Interface(tk.Tk):
 
         self.back_tree_button.place(x=20, y=400)
 
-    def insert_date_tree(self, func):
+    def insert_date_tree(self, variable):
         """функция заполняет данные в таблицу"""
-        self.tree.insert_tree(func)
+        self.tree.insert_tree(variable)
 
     def change(self, variable):
         """функция запонляет данные в таблицу, проверяет количество страниц"""
@@ -94,6 +95,6 @@ class Interface(tk.Tk):
         self.change(self.users)
 
     def get_search(self):
-        value = self.search_tree_entry.get()
-        self.tree.get_search_tree(value)
+        self.value = self.search_tree_entry.get()
+        self.tree.get_search_tree(self.value)
 
