@@ -1,11 +1,6 @@
 import tkinter as tk
 from Tree import Treeview
 
-column_1 = ["Трекер"]
-column_2 = ["Проект"]
-column_3 = ["задача"]
-column_4 = ["пользователь"]
-
 
 class Interface(tk.Tk):
     """ класс основного графического интерфейса """
@@ -73,25 +68,25 @@ class Interface(tk.Tk):
     def get_projects(self):
         """функция получает проекты"""
         self.projects = self.redmine.get_projects_all()
-        self.tree.init_columns(column_2)
+        self.tree.init_columns("Проект")
         self.change(self.projects)
 
     def get_trackers(self):
         """функция получает трекеры"""
         self.trackers = self.redmine.get_trackers_all()
-        self.tree.init_columns(column_1)
+        self.tree.init_columns("Трекер")
         self.change(self.trackers)
 
     def get_issues(self):
         """функция получает задачи"""
         self.issues = self.redmine.get_issues_all()
-        self.tree.init_columns(column_3)
+        self.tree.init_columns("Задача")
         self.change(self.issues)
 
     def get_users(self):
         """функция получает пользователей"""
         self.users = self.redmine.get_users_all()
-        self.tree.init_columns(column_4)
+        self.tree.init_columns("Пользователь")
         self.change(self.users)
 
     def get_search(self):

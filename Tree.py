@@ -20,13 +20,12 @@ class Treeview(ttk.Treeview):
         self.back_id = 0
         self.data_resource = []
 
-    def init_columns(self, list_columns: (list, tuple)):
+    def init_columns(self, list_columns: str):
         """функция создает колонки таблицы"""
         self.tree = ttk.Treeview(self.tree_label, show='headings', height=30)
         self.tree['columns'] = list_columns
-        for column in list_columns:
-            self.tree.column(column, width=600, minwidth=100, stretch=tk.NO)
-            self.tree.heading(column, text=column)
+        self.tree.column(list_columns, width=600, minwidth=100, stretch=tk.NO)
+        self.tree.heading(list_columns, text=list_columns)
         self.tree.place(x=0, y=0)
 
     def check_tree_list(self, resource):
