@@ -80,7 +80,7 @@ class Authorization(tk.Tk):
                 if self.redmine.connection and self.redmine.redmine.auth():
                     self.new_window = Interface(self.redmine)
                     self.new_window.geometry("1024x720")
-                    self.new_window.title("Redmine")
+                    self.new_window.title("Василий")
                     self.destroy()
             except Exception as e:
                 print(e)
